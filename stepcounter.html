@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Body Temperature – SmartFit Band</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #e3f2fd, #bbdefb);
+      color: #0d47a1;
+      text-align: center;
+    }
+
+    nav {
+      background-color: #005bbb;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 15px 0;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      color: #ffeb3b;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-top: 40px;
+    }
+
+    .subtitle {
+      font-size: 1.1em;
+      margin-bottom: 30px;
+      color: #1565c0;
+    }
+
+    .temp-box {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      display: inline-block;
+      min-width: 280px;
+      margin: 30px auto;
+    }
+
+    .temp-icon {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 20px;
+    }
+
+    .temp-text {
+      font-size: 1.2em;
+      color: #0d47a1;
+    }
+
+    .temperature {
+      font-size: 2.3em;
+      font-weight: bold;
+      margin-top: 10px;
+      color: #e53935;
+    }
+
+    .start-btn {
+      margin-top: 25px;
+      padding: 10px 25px;
+      font-size: 1em;
+      background-color: #00c853;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .start-btn:hover {
+      background-color: #00b347;
+    }
+
+    .toggle-btn {
+      padding: 6px 10px;
+      font-size: 14px;
+      border-radius: 6px;
+      background-color: #1976d2;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+    footer {
+      margin-top: 60px;
+      color: #1565c0;
+      font-size: 0.9em;
+      background-color: #e3f2fd;
+      padding: 20px;
+      border-top: 1px solid #90caf9;
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      nav a {
+        margin: 10px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="stepcounter.html">Step Tracker</a>
+    <a href="heart.html">Heart Rate</a>
+    <a href="temperature.html">Body Temp</a>
+    <a href="calories.html">Calories</a>
+  </nav>
+
+  <h1>Body Temperature</h1>
+  <p class="subtitle">Monitor your body temperature easily and accurately.</p>
+
+  <div class="temp-box">
+    <img class="temp-icon" src="https://img.icons8.com/ios-filled/100/thermometer.png" alt="Thermometer Icon">
+    <div class="temp-text">Current Temperature:</div>
+
+    <!-- Temperature value and toggle -->
+    <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px;">
+      <div class="temperature" id="tempValue">--.-- °F</div>
+      <button class="toggle-btn" onclick="toggleUnit()">°C / °F</button>
+    </div>
+
+    <button class="start-btn" onclick="startTemp()">Start</button>
+  </div>
+
+  <footer>
+    &copy; 2025 All rights reserved. Designed by <strong>Harman Designer</strong>.
+  </footer>
+
+  <script>
+    let currentTempF = null;
+    let isFahrenheit = true;
+
+    function startTemp() {
+      currentTempF = (Math.random() * (99.5 - 97.5) + 97.5).toFixed(1);
+      isFahrenheit = true;
+      updateDisplay();
+    }
+
+    function toggleUnit() {
+      isFahrenheit = !isFahrenheit;
+      updateDisplay();
+    }
+
+    function updateDisplay() {
+      const tempDisplay = document.getElementById('tempValue');
+      if (currentTempF === null) {
+        tempDisplay.textContent = "--.-- °F";
+        return;
+      }
+
+      if (isFahrenheit) {
+        tempDisplay.textContent = `${currentTempF} °F`;
+      } else {
+        const tempC = ((parseFloat(currentTempF) - 32) * 5/9).toFixed(1);
+        tempDisplay.textContent = `${tempC} °C`;
+      }
+    }
+  </script>
+
+</body>
+</html>
