@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Heart Rate – SmartFit Band</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #e3f2fd, #bbdefb);
+      color: #0d47a1;
+      text-align: center;
+    }
+
+    /* NavBar */
+    nav {
+      background-color: #005bbb;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 15px 0;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      color: #ffeb3b;
+    }
+
+    h1 {
+      font-size: 2.8em;
+      margin-top: 40px;
+    }
+
+    .subtitle {
+      font-size: 1.2em;
+      margin-bottom: 30px;
+      color: #1565c0;
+    }
+
+    .heart-box {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      display: inline-block;
+      min-width: 280px;
+      margin: 30px auto;
+    }
+
+    .heart-icon {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 20px;
+      animation: heartbeat 1s infinite;
+      transform-origin: center;
+    }
+
+    @keyframes heartbeat {
+      0% { transform: scale(1); }
+      25% { transform: scale(1.2); }
+      50% { transform: scale(1); }
+      75% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    .heart-text {
+      font-size: 1.2em;
+      color: #0d47a1;
+    }
+
+    .heart-rate {
+      font-size: 2.5em;
+      font-weight: bold;
+      margin-top: 10px;
+      color: #e53935;
+    }
+
+    .start-btn {
+      margin-top: 25px;
+      padding: 10px 25px;
+      font-size: 1em;
+      background-color: #00c853;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .start-btn:hover {
+      background-color: #00a743;
+    }
+
+    footer {
+      margin-top: 60px;
+      color: #1565c0;
+      font-size: 0.9em;
+      background-color: #e3f2fd;
+      padding: 20px;
+      border-top: 1px solid #90caf9;
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      nav a {
+        margin: 10px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="stepcounter.html">Step Tracker</a>
+    <a href="heart.html">Heart Rate</a>
+    <a href="temperature.html">Body Temp</a>
+    <a href="calories.html">Calories</a>
+    <a href="#">More</a>
+  </nav>
+
+  <h1>Heart Rate Monitor</h1>
+  <p class="subtitle">Check your real-time heart rate below.</p>
+
+  <div class="heart-box">
+    <img class="heart-icon" src="https://img.icons8.com/ios-filled/100/fa314a/like--v1.png" alt="Heart Icon">
+    <div class="heart-text">Heart Rate (BPM):</div>
+    <div class="heart-rate" id="rate">--</div>
+    <button class="start-btn" onclick="startMonitoring()">Start</button>
+  </div>
+
+  <footer>
+    &copy; 2025 All rights reserved. Designed by <strong>Harman Designer</strong>.
+  </footer>
+
+  <!-- Heartbeat Script -->
+  <script>
+    let interval;
+
+    function startMonitoring() {
+      clearInterval(interval);
+      interval = setInterval(() => {
+        const bpm = Math.floor(Math.random() * 30) + 65; // Between 65 and 95 BPM
+        document.getElementById('rate').textContent = bpm;
+      }, 1000);
+    }
+  </script>
+</body>
+</html>
