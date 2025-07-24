@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calories Burned – SmartFit Band</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #e3f2fd, #bbdefb);
+      color: #0d47a1;
+      text-align: center;
+    }
+
+    nav {
+      background-color: #005bbb;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 15px 0;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      color: #ffeb3b;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-top: 40px;
+    }
+
+    .subtitle {
+      font-size: 1.1em;
+      margin-bottom: 30px;
+      color: #1565c0;
+    }
+
+    .calorie-box {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      display: inline-block;
+      min-width: 280px;
+      margin: 30px auto;
+    }
+
+    .calorie-icon {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 20px;
+    }
+
+    .calorie-text {
+      font-size: 1.2em;
+      color: #0d47a1;
+    }
+
+    .calorie-count {
+      font-size: 2.3em;
+      font-weight: bold;
+      margin-top: 10px;
+      color: #ff5722;
+    }
+
+    .start-btn {
+      margin-top: 25px;
+      padding: 10px 25px;
+      font-size: 1em;
+      background-color: #00c853;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .start-btn:hover {
+      background-color: #00b347;
+    }
+
+    footer {
+      margin-top: 60px;
+      color: #1565c0;
+      font-size: 0.9em;
+      background-color: #e3f2fd;
+      padding: 20px;
+      border-top: 1px solid #90caf9;
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      nav a {
+        margin: 10px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="stepcounter.html">Step Tracker</a>
+    <a href="heart.html">Heart Rate</a>
+    <a href="temperature.html">Body Temp</a>
+    <a href="calories.html">Calories</a>
+   
+  </nav>
+
+  <h1>Calories Burned</h1>
+  <p class="subtitle">Track how many calories you've burned today.</p>
+
+  <div class="calorie-box">
+    <img class="calorie-icon" src="https://img.icons8.com/ios-filled/100/fire-element.png" alt="Calorie Icon">
+    <div class="calorie-text">Calories Burned:</div>
+    <div class="calorie-count" id="calorieValue">--</div>
+    <button class="start-btn" onclick="generateCalories()">Start</button>
+  </div>
+
+  <footer>
+    &copy; 2025 All rights reserved. Designed by <strong>Harman Designer</strong>.
+  </footer>
+
+  <script>
+    function generateCalories() {
+      const calories = Math.floor(Math.random() * 300 + 150); // 150–450 range
+      document.getElementById('calorieValue').textContent = calories + " kcal";
+    }
+  </script>
+
+</body>
+</html>
