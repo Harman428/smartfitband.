@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SmartFit Band</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #e3f2fd, #bbdefb);
+      color: #0d47a1;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .container {
+      text-align: center;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-bottom: 10px;
+      color: #0d47a1;
+    }
+
+    .slogan {
+      font-size: 1.3em;
+      color: #1565c0;
+      margin-bottom: 50px;
+    }
+
+    .features-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .feature-box {
+      width: 160px;
+      height: 180px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      padding: 20px 15px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .feature-box img {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 15px;
+    }
+
+    .feature-box p {
+      font-size: 1em;
+      font-weight: 600;
+      color: #0d47a1;
+    }
+
+    .feature-box:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    footer {
+      background-color: #0d47a1;
+      color: white;
+      text-align: center;
+      padding: 20px 10px;
+      font-size: 0.95em;
+      margin-top: auto;
+    }
+
+    footer span {
+      font-weight: bold;
+      color: #bbdefb;
+    }
+
+    @media (max-width: 600px) {
+      .feature-box {
+        width: 140px;
+        height: 160px;
+      }
+
+      .feature-box p {
+        font-size: 0.9em;
+      }
+
+      h1 {
+        font-size: 2em;
+      }
+
+      .slogan {
+        font-size: 1em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>SmartFit Band</h1>
+    <p class="slogan">Track Your Health, Stay Ahead</p>
+
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 40px;">
+      <a href="stepcounter.html">
+        <div class="feature-box">
+          <img src="https://img.icons8.com/ios-filled/100/walking.png" />
+          <p>Step Tracker</p>
+        </div>
+      </a>
+    
+      <a href="heart.html">
+        <div class="feature-box">
+          <img src="https://img.icons8.com/ios-filled/100/like.png" />
+          <p>Heart Rate</p>
+        </div>
+      </a>
+    
+      <a href="temperature.html">
+        <div class="feature-box">
+          <img src="https://img.icons8.com/ios-filled/100/temperature.png" alt="Body Temp Icon">
+          <p>Body Temp</p>
+        </div>
+      </a>
+      
+      
+    
+      <a href="calories.html">
+        <div class="feature-box">
+          <img src="https://img.icons8.com/ios-filled/100/fire-element.png" />
+          <p>Calorie</p>
+        </div>
+      </a>
+    </div>
+    
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 All rights reserved. Designed by <span>Harman Designer</span>.
+  </footer>
+</body>
+</html>
