@@ -20,7 +20,7 @@
     }
 
     /* NavBar */
-    nav {
+nav {
   background-color: #005bbb;
   display: flex;
   justify-content: center;
@@ -31,16 +31,24 @@
 nav a {
   color: white;
   text-decoration: none;
-  margin: 0 15px;
+  margin: 0 10px;
   font-size: 16px;
-  white-space: nowrap;  /* Prevent breaking into two lines */
   font-weight: 500;
 }
 
+/* Remove vertical stacking on mobile */
+@media (max-width: 600px) {
+  nav {
+    flex-direction: row; /* Ensure links stay in a row */
+    flex-wrap: wrap;     /* Allow wrapping if screen is small */
+    justify-content: center;
+  }
 
-    nav a:hover {
-      color: #ffeb3b;
-    }
+  nav a {
+    margin: 5px 10px; /* Tighter spacing */
+  }
+}
+
 
     h1 {
       font-size: 2.8em;
