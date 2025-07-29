@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Stopwatch – SmartFit Band</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #e3f2fd, #bbdefb);
+      color: #0d47a1;
+      text-align: center;
+    }
+
+    nav {
+      background-color: #005bbb;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 15px 0;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      color: #ffeb3b;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-top: 40px;
+    }
+
+    .subtitle {
+      font-size: 1.1em;
+      margin-bottom: 30px;
+      color: #1565c0;
+    }
+
+    .stopwatch-box {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      display: inline-block;
+      min-width: 300px;
+      margin: 30px auto;
+    }
+
+    .time-display {
+      font-size: 2.5em;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .controls button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 1em;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .start-btn { background-color: #00c853; }
+    .start-btn:hover { background-color: #00b347; }
+
+    .stop-btn { background-color: #d32f2f; }
+    .stop-btn:hover { background-color: #c62828; }
+
+    .reset-btn { background-color: #1976d2; }
+    .reset-btn:hover { background-color: #1565c0; }
+
+    .lap-btn { background-color: #ff9800; }
+    .lap-btn:hover { background-color: #fb8c00; }
+
+    .laps {
+      margin-top: 20px;
+      text-align: left;
+      max-height: 150px;
+      overflow-y: auto;
+      padding: 0 10px;
+    }
+
+    .lap-item {
+      border-bottom: 1px solid #ccc;
+      padding: 5px 0;
+      font-size: 1em;
+    }
+
+    footer {
+      margin-top: 60px;
+      color: #1565c0;
+      font-size: 0.9em;
+      background-color: #e3f2fd;
+      padding: 20px;
+      border-top: 1px solid #90caf9;
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      nav a {
+        margin: 10px 0;
+      }
+
+      .stopwatch-box {
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="stepcounter.html">Step Tracker</a>
+    <a href="heart.html">Heart Rate</a>
+    <a href="temperature.html">Body Temp</a>
+    <a href="calories.html">Calories</a>
+    <a href="stopwatch.html">Stopwatch</a>
+  </nav>
+
+  <h1>Stopwatch</h1>
+  <p class="subtitle">Track your workout time with laps.</p>
+
+  <div class="stopwatch-box">
+    <div class="time-display" id="timeDisplay">00:00:00</div>
+
+    <div class="controls">
+      <button class="start-btn" onclick="start()">Start</button>
+      <button class="stop-btn" onclick="stop()">Stop</button>
+      <button class="reset-btn" onclick="reset()">Reset</button>
+      <button class="lap-btn" onclick="lap()">Lap</button>
+    </div>
+
+    <div class="laps" id="lapsContainer"></div>
+  </div>
+
+  <footer>
+    &copy; 2025 All rights reserved. Designed by <strong>Harman Designer</strong>.
+  </footer>
+
+  <script>
+    let startTime, updatedTime, difference, timerInterval;
+    let running = false;
+    let lapCount = 0;
+
+    function start() {
+      if (!running) {
+        startTime = new Date().getTime() - (difference || 0);
+        timerInterval = setInterval(updateTime, 1000);
+        running = true;
+      }
+    }
+
+    function stop() {
+      if (running) {
+        clearInterval(timerInterval);
+        difference = new Date().getTime() - startTime;
+        running = false;
+      }
+    }
+
+    function reset() {
+      clearInterval(timerInterval);
+      document.getElementById("timeDisplay").textContent = "00:00:00";
+      document.getElementById("lapsContainer").innerHTML = "";
+      running = false;
+      difference = 0;
+      lapCount = 0;
+    }
+
+    function lap() {
+      if (!running) return;
+      const currentTime = document.getElementById("timeDisplay").textContent;
+      lapCount++;
+      const lapItem = document.createElement("div");
+      lapItem.className = "lap-item";
+      lapItem.textContent = `Lap ${lapCount}: ${currentTime}`;
+      document.getElementById("lapsContainer").prepend(lapItem);
+    }
+
+    function updateTime() {
+      updatedTime = new Date().getTime() - startTime;
+      const hrs = Math.floor(updatedTime / 3600000);
+      const mins = Math.floor((updatedTime % 3600000) / 60000);
+      const secs = Math.floor((updatedTime % 60000) / 1000);
+
+      document.getElementById("timeDisplay").textContent =
+        `${pad(hrs)}:${pad(mins)}:${pad(secs)}`;
+    }
+
+    function pad(num) {
+      return num < 10 ? "0" + num : num;
+    }
+  </script>
+
+</body>
+</html>
