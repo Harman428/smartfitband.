@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SmartFit Band</title>
+  <title>SmartFit Band</title>                                                         
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     * {
@@ -37,7 +37,21 @@
     .slogan {
       font-size: 1.3em;
       color: #1565c0;
-      margin-bottom: 50px;
+      margin-bottom: 20px;
+    }
+
+    #clock {
+      font-size: 2.5em;
+      color: white;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.6), 0 0 5px #00c3ff;
+      background-color: #ffffff22;
+      border-radius: 15px;
+      padding: 15px 30px;
+      display: inline-block;
+      margin: 30px auto;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      font-weight: bold;
+      backdrop-filter: blur(6px);
     }
 
     .features-grid {
@@ -45,6 +59,7 @@
       flex-wrap: wrap;
       justify-content: center;
       gap: 30px;
+      margin-top: 20px;
     }
 
     .feature-box {
@@ -109,6 +124,10 @@
       .slogan {
         font-size: 1em;
       }
+
+      #clock {
+        font-size: 1.8em;
+      }
     }
   </style>
 </head>
@@ -116,8 +135,10 @@
   <div class="container">
     <h1>SmartFit Band</h1>
     <p class="slogan">Track Your Health, Stay Ahead</p>
+    
+    <div id="clock"></div>
 
-    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 40px;">
+    <div class="features-grid">
       <a href="stepcounter.html">
         <div class="feature-box">
           <img src="https://img.icons8.com/ios-filled/100/walking.png" />
@@ -139,21 +160,33 @@
         </div>
       </a>
       
-      
-    
       <a href="calories.html">
         <div class="feature-box">
           <img src="https://img.icons8.com/ios-filled/100/fire-element.png" />
           <p>Calorie</p>
         </div>
       </a>
-    </div>
-    
+      <a href="stopwatch.html">
+        <div class="feature-box">
+          <img src="https://img.icons8.com/ios-filled/100/stopwatch.png" />
+          <p>Stopwatch</p>
+        </div>
+      </a>
     </div>
   </div>
 
   <footer>
     &copy; 2025 All rights reserved. Designed by <span>Harman Designer</span>.
   </footer>
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+      const clock = document.getElementById('clock');
+      clock.textContent = now.toLocaleTimeString();
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+  </script>
 </body>
 </html>
