@@ -27,14 +27,16 @@
 
     /* Navbar */
     nav {
-  display:contents;
+  display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #000;
+  background-color: #005bbb;
   padding: 15px 20px;
   flex-wrap: wrap;
 }
-
+body.dark-mode nav {
+      background-color: #1e1e1e;
+    }
 .nav-left, .nav-center, .nav-right {
   display: flex;
   align-items: center;
@@ -111,6 +113,7 @@ body.dark-mode {
 
       .menu-icon {
         display: block;
+        background-color:#0d47a1;
       }
 
       body.dark-mode .menu {
@@ -207,7 +210,7 @@ body.dark-mode {
   <button class="dark-toggle" id="toggleMode">🌙 Dark Mode</button>
 
   <!-- Navbar -->
-   <nav>
+  <nav>
     <div class="nav">
       <a href="index.html" class="logo">SmartFit</a>
     </div>
@@ -223,6 +226,7 @@ body.dark-mode {
   
   
   </nav>
+  
 
   <h1>Step Counter</h1>
   <p class="subtitle">Keep moving! Your steps are being tracked live.</p>
