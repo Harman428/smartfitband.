@@ -17,29 +17,83 @@
       background: linear-gradient(to right, #e3f2fd, #bbdefb);
       color: #0d47a1;
       text-align: center;
+      transition: background 0.4s, color 0.4s;
     }
 
-    /* NavBar */
+    body.dark-mode {
+      background: #121212;
+      color: #e0e0e0;
+    }
+
+    /* Navbar */
     nav {
-  background-color: #005bbb;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  padding: 15px 0;
-}
+      background-color: #005bbb;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      position: relative;
+    }
 
-nav a {
-  color: white;
-  text-decoration: none;
-  margin: 0 15px;
-  font-size: 16px;
-  white-space: nowrap;  /* Prevent breaking into two lines */
-  font-weight: 500;
-}
+    nav .logo {
+      color: white;
+      font-weight: bold;
+      font-size: 20px;
+    }
 
+    nav .menu {
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 16px;
+    }
 
     nav a:hover {
       color: #ffeb3b;
+    }
+
+    body.dark-mode nav {
+      background-color: #1e1e1e;
+    }
+
+    .menu-icon {
+      display: none;
+      font-size: 28px;
+      color: white;
+      cursor: pointer;
+    }
+
+    #menu-toggle {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .menu {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #005bbb;
+        margin-top: 10px;
+        padding-bottom: 10px;
+      }
+
+      #menu-toggle:checked + .menu-icon + .menu {
+        display: flex;
+      }
+
+      .menu-icon {
+        display: block;
+      }
+
+      body.dark-mode .menu {
+        background-color: #1e1e1e;
+      }
     }
 
     h1 {
@@ -53,6 +107,10 @@ nav a {
       color: #1565c0;
     }
 
+    body.dark-mode .subtitle {
+      color: #90caf9;
+    }
+
     .step-box {
       background: white;
       border-radius: 20px;
@@ -63,6 +121,11 @@ nav a {
       margin: 30px auto;
     }
 
+    body.dark-mode .step-box {
+      background: #1e1e1e;
+      box-shadow: none;
+    }
+
     .step-icon {
       width: 80px;
       height: 80px;
@@ -71,7 +134,6 @@ nav a {
 
     .step-text {
       font-size: 1.2em;
-      color: #0d47a1;
     }
 
     .step-count {
@@ -90,29 +152,51 @@ nav a {
       border-top: 1px solid #90caf9;
     }
 
-    @media (max-width: 600px) {
-      nav {
-        flex-direction: column;
-        align-items: center;
-      }
+    body.dark-mode footer {
+      background-color: #1e1e1e;
+      color: #90caf9;
+      border-top: 1px solid #333;
+    }
 
-      nav a {
-        margin: 10px 0;
-      }
+    /* Dark Mode Toggle Button */
+    #toggleMode {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 6px;
+      background: #1565c0;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 999;
+    }
+
+    .dark-mode #toggleMode {
+      background: #90caf9;
+      color: #121212;
     }
   </style>
 </head>
 <body>
 
+  <!-- Dark Mode Button -->
+  <button class="dark-toggle" id="toggleMode">🌙 Dark Mode</button>
+
   <!-- Navbar -->
   <nav>
-    <a href="index.html">Home</a>
-    <a href="stepcounter.html">Step Tracker</a>
-    <a href="heart.html">Heart Rate</a>
-    <a href="temperature.html">Body Temp</a>
-    <a href="calories.html">Calories</a>
-    <a href="stopwatch.html">Stopwatch</a>
-    
+    <div class="logo">SmartFit</div>
+    <input type="checkbox" id="menu-toggle">
+    <label for="menu-toggle" class="menu-icon">&#9776;</label>
+    <div class="menu">
+      <a href="index.html">Home</a>
+      <a href="stepcounter.html">Step Tracker</a>
+      <a href="heart.html">Heart Rate</a>
+      <a href="temperature.html">Body Temp</a>
+      <a href="calories.html">Calories</a>
+      <a href="stopwatch.html">Stopwatch</a>
+    </div>
   </nav>
 
   <h1>Step Counter</h1>
@@ -140,6 +224,23 @@ nav a {
         counter.textContent = count;
       }
     }, 50);
+  </script>
+
+  <!-- Dark Mode Script -->
+  <script>
+    const toggleBtn = document.getElementById('toggleMode');
+
+    if (localStorage.getItem('darkMode') === 'true') {
+      document.body.classList.add('dark-mode');
+      toggleBtn.textContent = '☀️ Light Mode';
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      const isDark = document.body.classList.contains('dark-mode');
+      localStorage.setItem('darkMode', isDark);
+      toggleBtn.textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
+    });
   </script>
 </body>
 </html>
