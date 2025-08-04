@@ -17,6 +17,12 @@
       background: linear-gradient(to right, #e3f2fd, #bbdefb);
       color: #0d47a1;
       text-align: center;
+      transition: background 0.4s, color 0.4s;
+    }
+
+    body.dark-mode {
+      background: #121212;
+      color: #e0e0e0;
     }
 
     /* NavBar */
@@ -27,7 +33,9 @@
       flex-wrap: wrap;
       padding: 15px 0;
     }
-
+    body.dark-mode nav {
+      background-color: #1e1e1e;
+    }
     nav a {
       color: white;
       text-decoration: none;
@@ -60,7 +68,10 @@
       min-width: 280px;
       margin: 30px auto;
     }
-
+    body.dark-mode .heart-box {
+      background: #1e1e1e;
+      box-shadow: none;
+    }
     .heart-icon {
       width: 80px;
       height: 80px;
@@ -113,20 +124,37 @@
       padding: 20px;
       border-top: 1px solid #90caf9;
     }
+    body.dark-mode footer {
+      background-color: #1e1e1e;
+      color: #90caf9;
+      border-top: 1px solid #333;
+    }
 
-    @media (max-width: 600px) {
-      nav {
-        flex-direction: column;
-        align-items: center;
-      }
+    /* Dark Mode Toggle Button */
+    #toggleMode {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 6px;
+      background: #1565c0;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 999;
+    }
 
-      nav a {
-        margin: 10px 0;
-      }
+    .dark-mode #toggleMode {
+      background: #90caf9;
+      color: #121212;
     }
   </style>
 </head>
 <body>
+  
+   <!-- Dark Mode Button -->
+   <button class="dark-toggle" id="toggleMode">🌙 Dark Mode</button>
 
   <!-- Navbar -->
   <nav>
@@ -145,7 +173,8 @@
     <img class="heart-icon" src="https://img.icons8.com/ios-filled/100/fa314a/like--v1.png" alt="Heart Icon">
     <div class="heart-text">Heart Rate (BPM):</div>
     <div class="heart-rate" id="rate">--</div>
-    <button class="start-btn" onclick="startMonitoring()">Start</button>
+    <button class="start-btn" id="monitorBtn" onclick="toggleMonitoring()">Start</button>
+
   </div>
 
   <footer>
@@ -155,14 +184,48 @@
   <!-- Heartbeat Script -->
   <script>
     let interval;
-
-    function startMonitoring() {
-      clearInterval(interval);
-      interval = setInterval(() => {
-        const bpm = Math.floor(Math.random() * 30) + 65; // Between 65 and 95 BPM
-        document.getElementById('rate').textContent = bpm;
-      }, 1000);
+    let isMonitoring = false;
+  
+    function toggleMonitoring() {
+      const btn = document.getElementById('monitorBtn');
+      
+      if (!isMonitoring) {
+        // Start Monitoring
+        interval = setInterval(() => {
+          const bpm = Math.floor(Math.random() * 30) + 65; // Random BPM
+          document.getElementById('rate').textContent = bpm;
+        }, 1000);
+        btn.textContent = "Stop";
+        btn.style.backgroundColor = "#e53935"; // Red for stop
+        isMonitoring = true;
+      } else {
+        // Stop Monitoring
+        clearInterval(interval);
+        document.getElementById('rate').textContent = "--";
+        btn.textContent = "Start";
+        btn.style.backgroundColor = "#00c853"; // Green for start
+        isMonitoring = false;
+      }
     }
+  </script>
+  
+ 
+  <!-- Dark Mode Script -->
+  <script>
+    const toggleBtn = document.getElementById('toggleMode');
+
+    // Apply saved dark mode
+    if (localStorage.getItem('darkMode') === 'true') {
+      document.body.classList.add('dark-mode');
+      toggleBtn.textContent = '☀️ Light Mode';
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      const isDark = document.body.classList.contains('dark-mode');
+      localStorage.setItem('darkMode', isDark);
+      toggleBtn.textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
+    });
   </script>
 </body>
 </html>
