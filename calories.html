@@ -1,231 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Calories Burned – SmartFit Band</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Smart Fit Band</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(to right, #e3f2fd, #bbdefb);
-      color: #0d47a1;
-      text-align: center;
-      transition: background 0.4s, color 0.4s;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+      transition: background-color 0.3s, color 0.3s;
     }
 
-    body.dark-mode {
-      background: #121212;
-      color: #e0e0e0;
+    .dark-mode {
+      background-color: #111;
+      color: #eee;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      background-color: #005bbb;
+    }
+
+    .title {
+      font-size: 20px;
+      font-weight: bold;
+      color: white;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    .menu-toggle {
+      font-size: 26px;
+      cursor: pointer;
+      color: white;
+      background: none;
+      border: none;
     }
 
     nav {
-      background-color: #005bbb;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      padding: 15px 0;
+      display: none;
+      flex-direction: column;
+      background-color: #0077cc;
+      text-align: left;
+      padding: 10px 20px;
     }
 
-    body.dark-mode nav {
-      background-color: #1e1e1e;
+    nav.show {
+      display: flex;
     }
 
     nav a {
       color: white;
       text-decoration: none;
-      margin: 0 15px;
-      font-size: 16px;
-      font-weight: 500;
-    }
-
-    nav a:hover {
-      color: #ffeb3b;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     h1 {
-      font-size: 2.5em;
-      margin-top: 40px;
+      text-align: center;
+      margin-top: 30px;
     }
 
     .subtitle {
-      font-size: 1.1em;
-      margin-bottom: 30px;
-      color: #1565c0;
-    }
-
-    .calorie-box {
-      background: white;
-      border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-      padding: 40px;
-      display: inline-block;
-      min-width: 280px;
-      margin: 30px auto;
-    }
-
-    body.dark-mode .calorie-box {
-      background: #1e1e1e;
-      box-shadow: none;
-    }
-
-    .calorie-icon {
-      width: 80px;
-      height: 80px;
+      text-align: center;
+      font-size: 16px;
       margin-bottom: 20px;
     }
 
+    .calorie-box {
+      max-width: 300px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .calorie-icon {
+      width: 60px;
+      margin-bottom: 10px;
+    }
+
     .calorie-text {
-      font-size: 1.2em;
-      color: #0d47a1;
+      font-size: 16px;
+      margin-bottom: 5px;
     }
 
     .calorie-count {
-      font-size: 2.3em;
+      font-size: 28px;
       font-weight: bold;
-      margin-top: 10px;
-      color: #ff5722;
+      margin-bottom: 20px;
     }
 
-    .btn {
-      margin-top: 25px;
+    .start-btn {
       padding: 10px 25px;
-      font-size: 1em;
+      font-size: 16px;
+      background-color: #005bbb;
       color: white;
       border: none;
-      border-radius: 8px;
+      border-radius: 5px;
       cursor: pointer;
-      transition: 0.3s;
     }
 
-    .start {
-      background-color: #00c853;
-    }
-
-    .start:hover {
-      background-color: #00a743;
-    }
-
-    .stop {
-      background-color: #e53935;
-    }
-
-    .stop:hover {
-      background-color: #c62828;
+    .start-btn:hover {
+      background-color: #004999;
     }
 
     footer {
-      margin-top: 60px;
-      color: #1565c0;
-      font-size: 0.9em;
-      background-color: #e3f2fd;
-      padding: 20px;
-      border-top: 1px solid #90caf9;
-    }
-
-    body.dark-mode footer {
-      background-color: #1e1e1e;
-      color: #90caf9;
-      border-top: 1px solid #333;
-    }
-
-    #toggleMode {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      padding: 8px 14px;
-      border: none;
-      border-radius: 6px;
-      background: #1565c0;
+      margin-top: 50px;
+      padding: 15px;
+      background-color: #005bbb;
       color: white;
-      font-weight: bold;
-      cursor: pointer;
-      z-index: 999;
+      text-align: center;
     }
 
-    .dark-mode #toggleMode {
-      background: #90caf9;
-      color: #121212;
+    .dark-toggle {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      z-index: 100;
+      padding: 8px 15px;
+      font-size: 14px;
+      border: none;
+      border-radius: 5px;
+      background-color: #222;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .dark-mode .calorie-box {
+      background-color: #222;
+      color: white;
+    }
+
+    .dark-mode nav {
+      background-color: #333;
+    }
+
+    .dark-mode footer {
+      background-color: #111;
     }
   </style>
 </head>
 <body>
-<!-- Dark Mode Button -->
-<button class="dark-toggle" id="toggleMode">🌙 Dark Mode</button>
 
-<!-- Navbar -->
-<nav>
-  <a href="index.html">Home</a>
-  <a href="stepcounter.html">Step Tracker</a>
-  <a href="heart.html">Heart Rate</a>
-  <a href="temperature.html">Body Temp</a>
-  <a href="calories.html">Calories</a>
-  <a href="stopwatch.html">Stopwatch</a>
-</nav>
+  <!-- Dark Mode Button -->
+  <button class="dark-toggle" id="toggleMode">🌙 Dark Mode</button>
 
-<h1>Calories Burned</h1>
-<p class="subtitle">Track how many calories you've burned today.</p>
+  <!-- Header -->
+  <header>
+    <div class="title">smart fit band</div>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+  </header>
 
-<div class="calorie-box">
-  <img class="calorie-icon" src="https://img.icons8.com/ios-filled/100/fire-element.png" alt="Calorie Icon">
-  <div class="calorie-text">Calories Burned:</div>
-  <div class="calorie-count" id="calorieValue">--</div>
-  <button class="btn start" id="calorieBtn" onclick="toggleCalorie()">Start</button>
-</div>
+  <!-- Nav Menu -->
+  <nav id="navMenu">
+    <a href="index.html">Home</a>
+    <a href="stepcounter.html">Step Tracker</a>
+    <a href="heart.html">Heart Rate</a>
+    <a href="temperature.html">Body Temp</a>
+    <a href="calories.html">Calories</a>
+    <a href="stopwatch.html">Stopwatch</a>
+  </nav>
 
-<footer>
-  &copy; 2025 All rights reserved. Designed by <strong>Harman Designer</strong>.
-</footer>
+  <!-- Main Content -->
+  <h1>Calories Burned</h1>
+  <p class="subtitle">Track how many calories you've burned today.</p>
 
-<script>
-  let isRunning = false;
-  let calorieInterval;
+  <div class="calorie-box">
+    <img class="calorie-icon" src="https://img.icons8.com/ios-filled/100/fire-element.png" alt="Calorie Icon">
+    <div class="calorie-text">Calories Burned:</div>
+    <div class="calorie-count" id="calorieValue">--</div>
+    <button class="start-btn" onclick="generateCalories()">Start</button>
+  </div>
 
-  function toggleCalorie() {
-    const btn = document.getElementById('calorieBtn');
-    const value = document.getElementById('calorieValue');
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 All rights reserved. Designed by <strong>Harman Designer</strong>.
+  </footer>
 
-    if (!isRunning) {
-      calorieInterval = setInterval(() => {
-        const calories = Math.floor(Math.random() * 300 + 150); // 150–450 range
-        value.textContent = calories + " kcal";
-      }, 1000);
-      btn.textContent = "Stop";
-      btn.classList.remove("start");
-      btn.classList.add("stop");
-      isRunning = true;
-    } else {
-      clearInterval(calorieInterval);
-      value.textContent = "--";
-      btn.textContent = "Start";
-      btn.classList.remove("stop");
-      btn.classList.add("start");
-      isRunning = false;
+  <!-- Scripts -->
+  <script>
+    function generateCalories() {
+      const calories = Math.floor(Math.random() * 300 + 150);
+      document.getElementById('calorieValue').textContent = calories + " kcal";
     }
-  }
-</script>
 
-<!-- Dark Mode Script -->
-<script>
-  const toggleBtn = document.getElementById('toggleMode');
+    function toggleMenu() {
+      document.getElementById('navMenu').classList.toggle('show');
+    }
 
-  if (localStorage.getItem('darkMode') === 'true') {
-    document.body.classList.add('dark-mode');
-    toggleBtn.textContent = '☀️ Light Mode';
-  }
+    const toggleBtn = document.getElementById('toggleMode');
+    if (localStorage.getItem('darkMode') === 'true') {
+      document.body.classList.add('dark-mode');
+      toggleBtn.textContent = '☀️ Light Mode';
+    }
 
-  toggleBtn.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-    const isDark = document.body.classList.contains('dark-mode');
-    localStorage.setItem('darkMode', isDark);
-    toggleBtn.textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
-  });
-</script>
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      const isDark = document.body.classList.contains('dark-mode');
+      localStorage.setItem('darkMode', isDark);
+      toggleBtn.textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
+    });
+  </script>
 </body>
 </html>
