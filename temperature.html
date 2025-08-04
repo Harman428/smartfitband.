@@ -17,6 +17,12 @@
       background: linear-gradient(to right, #e3f2fd, #bbdefb);
       color: #0d47a1;
       text-align: center;
+      transition: background 0.4s, color 0.4s;
+    }
+
+    body.dark-mode {
+      background: #121212;
+      color: #e0e0e0;
     }
 
     nav {
@@ -26,7 +32,9 @@
       flex-wrap: wrap;
       padding: 15px 0;
     }
-
+    body.dark-mode nav {
+      background-color: #1e1e1e;
+    }
     nav a {
       color: white;
       text-decoration: none;
@@ -34,18 +42,17 @@
       font-size: 16px;
       font-weight: 500;
     }
-
     nav a:hover {
       color: #ffeb3b;
     }
 
     h1 {
-      font-size: 2.5em;
+      font-size: 2.8em;
       margin-top: 40px;
     }
 
     .subtitle {
-      font-size: 1.1em;
+      font-size: 1.2em;
       margin-bottom: 30px;
       color: #1565c0;
     }
@@ -58,6 +65,10 @@
       display: inline-block;
       min-width: 280px;
       margin: 30px auto;
+    }
+    body.dark-mode .temp-box {
+      background: #1e1e1e;
+      box-shadow: none;
     }
 
     .temp-icon {
@@ -78,11 +89,10 @@
       color: #e53935;
     }
 
-    .start-btn {
+    .btn {
       margin-top: 25px;
       padding: 10px 25px;
       font-size: 1em;
-      background-color: #00c853;
       color: white;
       border: none;
       border-radius: 8px;
@@ -90,8 +100,20 @@
       transition: 0.3s;
     }
 
-    .start-btn:hover {
-      background-color: #00b347;
+    .start {
+      background-color: #00c853;
+    }
+
+    .start:hover {
+      background-color: #00a743;
+    }
+
+    .stop {
+      background-color: #e53935;
+    }
+
+    .stop:hover {
+      background-color: #c62828;
     }
 
     .toggle-btn {
@@ -113,20 +135,35 @@
       padding: 20px;
       border-top: 1px solid #90caf9;
     }
+    body.dark-mode footer {
+      background-color: #1e1e1e;
+      color: #90caf9;
+      border-top: 1px solid #333;
+    }
 
-    @media (max-width: 600px) {
-      nav {
-        flex-direction: column;
-        align-items: center;
-      }
+    #toggleMode {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 6px;
+      background: #1565c0;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 999;
+    }
 
-      nav a {
-        margin: 10px 0;
-      }
+    .dark-mode #toggleMode {
+      background: #90caf9;
+      color: #121212;
     }
   </style>
 </head>
 <body>
+  <!-- Dark Mode Button -->
+  <button class="dark-toggle" id="toggleMode">🌙 Dark Mode</button>
 
   <!-- Navbar -->
   <nav>
@@ -145,27 +182,46 @@
     <img class="temp-icon" src="https://img.icons8.com/ios-filled/100/thermometer.png" alt="Thermometer Icon">
     <div class="temp-text">Current Temperature:</div>
 
-    <!-- Temperature value and toggle -->
     <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px;">
       <div class="temperature" id="tempValue">--.-- °F</div>
       <button class="toggle-btn" onclick="toggleUnit()">°C / °F</button>
     </div>
 
-    <button class="start-btn" onclick="startTemp()">Start</button>
+    <button class="btn start" id="monitorBtn" onclick="toggleTemp()">Start</button>
   </div>
 
   <footer>
     &copy; 2025 All rights reserved. Designed by <strong>Harman Designer</strong>.
   </footer>
 
+  <!-- Temperature Script -->
   <script>
     let currentTempF = null;
     let isFahrenheit = true;
+    let tempInterval = null;
+    let isRunning = false;
 
-    function startTemp() {
-      currentTempF = (Math.random() * (99.5 - 97.5) + 97.5).toFixed(1);
-      isFahrenheit = true;
-      updateDisplay();
+    function toggleTemp() {
+      const btn = document.getElementById("monitorBtn");
+
+      if (!isRunning) {
+        tempInterval = setInterval(() => {
+          currentTempF = (Math.random() * (99.5 - 97.5) + 97.5).toFixed(1);
+          updateDisplay();
+        }, 1000);
+        btn.textContent = "Stop";
+        btn.classList.remove("start");
+        btn.classList.add("stop");
+        isRunning = true;
+      } else {
+        clearInterval(tempInterval);
+        currentTempF = null;
+        updateDisplay();
+        btn.textContent = "Start";
+        btn.classList.remove("stop");
+        btn.classList.add("start");
+        isRunning = false;
+      }
     }
 
     function toggleUnit() {
@@ -174,20 +230,33 @@
     }
 
     function updateDisplay() {
-      const tempDisplay = document.getElementById('tempValue');
+      const display = document.getElementById("tempValue");
       if (currentTempF === null) {
-        tempDisplay.textContent = "--.-- °F";
-        return;
-      }
-
-      if (isFahrenheit) {
-        tempDisplay.textContent = `${currentTempF} °F`;
+        display.textContent = "--.-- °F";
+      } else if (isFahrenheit) {
+        display.textContent = `${currentTempF} °F`;
       } else {
         const tempC = ((parseFloat(currentTempF) - 32) * 5/9).toFixed(1);
-        tempDisplay.textContent = `${tempC} °C`;
+        display.textContent = `${tempC} °C`;
       }
     }
   </script>
 
+  <!-- Dark Mode Script -->
+  <script>
+    const toggleBtn = document.getElementById('toggleMode');
+
+    if (localStorage.getItem('darkMode') === 'true') {
+      document.body.classList.add('dark-mode');
+      toggleBtn.textContent = '☀️ Light Mode';
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      const isDark = document.body.classList.contains('dark-mode');
+      localStorage.setItem('darkMode', isDark);
+      toggleBtn.textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
+    });
+  </script>
 </body>
 </html>
